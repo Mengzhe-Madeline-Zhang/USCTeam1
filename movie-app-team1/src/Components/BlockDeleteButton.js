@@ -1,6 +1,6 @@
 import React from 'react';
 import { BsFillTrashFill } from "react-icons/bs";
-class DeleteButton extends React.Component{
+class BlockDeleteButton extends React.Component{
     constructor(props) {
         super(props);
         this.handleDel.bind(this)
@@ -8,7 +8,7 @@ class DeleteButton extends React.Component{
     handleDel = (id) => {
         let BlockList = [...props.BlockList];
         let updatedBlockList = BlockList.filter((item) => item.id !== id);
-        this.props.setStateofParent(updatedBlockList)
+        this.props.deleteLikedMovie(updatedBlockList)
     }
 
     render(){
@@ -20,4 +20,4 @@ class DeleteButton extends React.Component{
 
 }
 
-export default DeleteButton
+export default BlockDeleteButton
