@@ -10,7 +10,9 @@ class BlockButton extends React.Component{
         let updatedLikeList = LikeList.filter((item) => item.id !== id);
         this.props.deleteLikedMovie(updatedLikeList);
         let BlockList = [...props.BlockList];
-        //const NewBlocked = 
+        const NewBlocked = 0;
+        this.props.addNewBlocked([...BlockList, NewBlocked])
+        
     }
 
 
