@@ -1,5 +1,5 @@
 import React from "react";
-
+import { BsFillXCircleFill } from "react-icons/bs";
 class BlockButton extends React.Component{
     constructor(props){
         super(props);
@@ -10,11 +10,16 @@ class BlockButton extends React.Component{
         let updatedLikeList = LikeList.filter((item) => item.id !== id);
         this.props.deleteLikedMovie(updatedLikeList);
         let BlockList = [...props.BlockList];
-        const NewBlocked = 0;
+        const NewBlocked = props.item;
         this.props.addNewBlocked([...BlockList, NewBlocked])
         
     }
+    render(){
+        return(
+        <BsFillXCircleFill onclick={this.handleBlock}/>
 
+        )
+    }
 
 }
 export default BlockButton
