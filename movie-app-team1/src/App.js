@@ -4,7 +4,7 @@ import MovieList from './compoent/MovieList';
 
 function App() {
   return (
-    <div className="Todo-App">
+    <div>
         <MovieList/>
     </div>
   );
