@@ -4,6 +4,12 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './features/store';
 
+import "./index.css"
+//Import and using boostrap library in index.js, so it's child component can use boostrap library.
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
