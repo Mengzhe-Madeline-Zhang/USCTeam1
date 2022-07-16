@@ -1,10 +1,10 @@
 import MovieList from './compoent/MovieList';
-import Pagination from "./compoent/Pagination";
+// import Pagination from "./compoent/Pagination";
 
 
 function App() {
   return (
-    <div className="Todo-App">
+    <div>
         <MovieList/>
     </div>
   );
