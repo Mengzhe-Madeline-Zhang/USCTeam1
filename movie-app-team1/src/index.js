@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import App from './App';
-import { store } from './features/store';
 
 import "./index.css"
 //Import and using boostrap library in index.js, so it's child component can use boostrap library.
@@ -13,9 +11,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
       <App />
-    </Provider>
   </React.StrictMode>
 );
 

@@ -1,10 +1,8 @@
-import React, { Suspense } from "react";
+import React, { createContext, Suspense, useContext } from "react";
 import { useState, useEffect } from "react";
-import { getAllMovies } from "./Slice";
 import movieApi from "../apis/movieApi";
-import { addMovies } from "./Slice";
 import { APIkey } from "../apis/movieApiKey";
-import { useDispatch, useSelector } from 'react-redux';
+import Loading from "./Loading";
 
 import "./MovieList.css";
 
@@ -12,33 +10,66 @@ const MovieCard = React.lazy(() => import("./MovieCard"));
 
 
 const GetMovieData = ({page}) => {
-    const dispatch = useDispatch();
-    const data = useSelector((state) => state.movies.movies.page);
-    
-    // const allmovie = getAllMovies;
+    const {data, setData} = useContext(DataContext);
+
+    // const {data, setData} = useContext(DataContext);
+    const currPage = `page${page}`;
+
     useEffect(() => {
-            if(data !== page) {
+        if(!data[currPage]) {
             const fetchMovies = async () => {
                 const response = await movieApi.get(`popular?api_key=${APIkey}&language=en-US&page=${page}`)
                     .catch((err) => {
                         console.log("err: ", err);
                     });
+                    
+                    const singleMovieData = response.data;
+                    // console.log(singleMovieData);
 
-                    // console.log("response", response.data);
-                    dispatch(addMovies(response.data));
+                    const newData = configData(singleMovieData,currPage);
+                    // console.log(newData);
+                    const addData = {...data, [currPage] : newData}
+                    // console.log(singleMovieData);
+                    setData(addData);
             };
             fetchMovies();
         }
-        
-    });
+    },[page])
 }
 
-const MovieList = () => {
+//Deconstructing movie data
+const configData = (newData,page) => {
+    
+    const addData = [];
+    newData.results.forEach((data) => {
+        let {poster_path,release_date,vote_average,vote_count,title,overview,id} = data;
+        const singleMovieData = {
+            poster_path : poster_path,
+            release_date : release_date,
+            vote_average : vote_average,
+            vote_count : vote_count,
+            title : title,
+            overview : overview,
+            likeButton : false,
+            blockButton : false,
+            id : id
+        }
+        addData.push(singleMovieData);
+    })
+    // console.log(addData)
+    return addData;
+}
+
+const DataContext = createContext(null);
+
+const MovieList = (props) => {
     const [page, setPage] = useState(1);
     const [likedList, setLikedList] = useState([
     ]);
 
     const [blockedList, setBlockedList] = useState([]);
+
+    const [data,setData] = useState({});
 
     const nextPage = () => {
         console.log("next",page);
@@ -49,33 +80,44 @@ const MovieList = () => {
          setPage(page-1);
     }
 
-    const addLike = (item, setItem) => {
-        let items = [...likedList];
-        items.push(item);
-        setLikedList(items);
+    const likeButtonHandler = (id) => {
+        const index = data[`page${page}`].findIndex((elem) => elem.id === id) 
+        
+        let items = {...data};
+        let item = items[`page${page}`][index];
+        item.likeButton = true;
+        setData(items);
+        // console.log(data);
+        props.likes({page : `page${page}`, data : item});
     }
 
-    const addBlock = (item, setBlocked) => {
-        let items = [...blockedList];
-        items.push(item);
-        setBlockedList(items);
-        console.log(likedList);
+    const blockButtonHandler = (id) => {
+        console.log(data);
+        const index = data[`page${page}`].findIndex((elem) => elem.id === id);
 
-    }
+        let items = {...data};
+        let item = items[`page${page}`];
+        let specifc = item[index];
+        specifc.blockButton = true;
+        item.splice(index,1);
+        setData(items);
+        props.blocks({page : `page${page}`, data : specifc});
     
-    let movies = useSelector(getAllMovies);
-
-    let renderMovies = "";
-    renderMovies =
-        movies.results ? (
-            movies.results.map((movie) => (
-                <MovieCard key={movie.id} data={movie} like={addLike} block={addBlock} />
-            ))
+    }
+    const currPage = `page${page}`;
+    
+    let renderMovies = 
+        data[currPage] ? (
+            data[currPage].map((movie) => 
+                <MovieCard key={movie.id} data={movie} like={likeButtonHandler} block={blockButtonHandler} />
+            )
         ) : (
-            <div>Error message</div>
+            <div><Loading/></div>
         )
+            
 
-    return <div className="movieListContainer">
+    return  <DataContext.Provider value={{data,setData}}>
+    <div className="movieListContainer">
         <h1>Our Top Rated Movies List</h1>  
         {/* temporary sort button */}
         <div className="sortButtons">
@@ -96,6 +138,7 @@ const MovieList = () => {
             </Suspense>
         </div>
     </div>
+    </DataContext.Provider>
 
 }
 
