@@ -1,0 +1,71 @@
+/* Change movie list background and center the text  */
+.movieListContainer {
+    text-align: center;
+    background-color: #f6f2c5;
+}
+
+ /* Adjust sort buttons postions and space between them  */
+.movieListContainer > .sortButtons{
+    margin: 3% 0;
+    display: flex;
+    justify-content: center;
+    column-gap: 3%;
+}
+
+ /* Adjust sort buttons color  */
+.movieListContainer > .sortButtons > button{
+    background-color: #87CEEB;
+}
+
+.movieListContainer > .pageContainer {
+    margin: 0 auto;
+    width: 80%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 3px 0;
+}
+
+.movieListContainer > .pageContainer > .pageButtons {
+    margin: 0 5%;
+    border: none;
+}
+
+
+ 
+.movieListContainer > .movieList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0 5%;
+    padding-left: 50px;
+}
+
+.movieListContainer > .movieList > .movie{
+    width: 240px;
+    height: auto;
+    margin: 10px 5px
+}
+
+.movieListContainer > .movieList > .movie > img {
+    width: 80%;
+    height: 270px;
+    margin-bottom: 1rem;
+    background-image: url(../asset/loading.gif);
+}
+
+.movieListContainer > .movieList > .movie > .buttonType > button {
+    margin: 1%;
+    margin-bottom: 1rem;
+}
+
+.movieListContainer > .movieList > .movie > #title {
+    font-style:italic;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.movieListContainer > .movieList > .movie > #title > i{
+    color: red;
+}
+
+
