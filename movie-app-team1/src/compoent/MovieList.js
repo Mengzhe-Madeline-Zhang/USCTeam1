@@ -53,6 +53,7 @@ const MovieList = () => {
         let items = [...likedList];
         items.push(item);
         setLikedList(items);
+        console.log(blockedList)
     }
 
     const addBlock = (item, setBlocked) => {

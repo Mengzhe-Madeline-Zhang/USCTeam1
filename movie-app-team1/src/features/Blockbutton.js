@@ -6,7 +6,7 @@ class BlockButton extends React.Component{
         this.handleBlock.bind(this)
     }
     handleBlock = (id) => {
-        let LikeList = [...props.LikeList];
+        let LikeList = [...this.state.likedList];
         let updatedLikeList = LikeList.filter((item) => item.id !== id);
         this.props.deleteLikedMovie(updatedLikeList);
         let BlockList = [...props.BlockList];
