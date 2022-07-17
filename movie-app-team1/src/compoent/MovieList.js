@@ -40,8 +40,7 @@ const GetMovieData = ({page}) => {
 
 //Deconstructing movie data
 const configData = (newData,page) => {
-    // const {data, setData} = useContext(DataContext);
-    // console.log(page);
+
     const addData = [];
     console.log(newData);
     newData.results.map((data)=> {
