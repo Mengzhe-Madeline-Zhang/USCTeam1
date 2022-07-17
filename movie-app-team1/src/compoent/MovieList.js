@@ -38,12 +38,14 @@ const GetMovieData = ({page}) => {
     },[page])
 }
 
+//Deconstructing movie data
 const configData = (newData,page) => {
     // const {data, setData} = useContext(DataContext);
     // console.log(page);
     const addData = [];
+    console.log(newData);
     newData.results.map((data)=> {
-        let {poster_path,release_date,vote_average,vote_count,title,overview} = data;
+        let {poster_path,release_date,vote_average,vote_count,title,overview,id} = data;
         const singleMovieData = {
             poster_path : poster_path,
             release_date : release_date,
@@ -52,7 +54,8 @@ const configData = (newData,page) => {
             title : title,
             overview : overview,
             likeButton : false,
-            blockButton : false
+            blockButton : false,
+            id : id
         }
         addData.push(singleMovieData);
     })
