@@ -1,4 +1,5 @@
-import MovieList from './compoent/MovieList';
+import React from 'react';
+import MovieList from './components/MovieList';
 import { useState, useEffect } from "react";
 // import Pagination from "./compoent/Pagination";
 
