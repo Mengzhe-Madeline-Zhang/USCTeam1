@@ -1,12 +1,14 @@
 import React from 'react';
-import MovieList from './components/MovieList';
-import { useState, useEffect } from "react";
-// import Pagination from "./compoent/Pagination";
+import { useState } from 'react';
+import { useEffect } from 'react';
+import NavBar from './components/NavBar';
+import HomePage from './components/HomePage';
 
 
 function App() {
   const [likelist, setLikeList] = useState([]);
   const [blocklist,setBlockList] = useState([]);
+  const [pagetoDisplay, setPagetoDisplay] = useState(<HomePage/>);
 
   const addLike = (item) => {
     const preventRepeat = likelist.find((elem) => {
@@ -25,7 +27,6 @@ function App() {
     const items = [...blocklist];
     items.push(item);
     setBlockList(items);
-      
   }
 
   //ComponentDidUpdate -> Prevent 
@@ -37,7 +38,9 @@ function App() {
   return (
     
     <div>
-        <MovieList likes={addLike} blocks={addBlock}/>
+      <NavBar pagetoDisplay= {pagetoDisplay} setPagetoDisplay = {setPagetoDisplay} likes={addLike} blocks={addBlock}/>
+      <likelist/>
+      {pagetoDisplay}
     </div>
   );
 }

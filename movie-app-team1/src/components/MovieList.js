@@ -11,7 +11,6 @@ const MovieCard = React.lazy(() => import("./MovieCard"));
 const GetMovieData = ({ page }) => {
     const { data, setData } = useContext(DataContext);
 
-    // const {data, setData} = useContext(DataContext);
     const currPage = `page${page}`;
 
     useEffect(() => {
@@ -71,19 +70,16 @@ const DataContext = createContext(null);
 
 const MovieList = (props) => {
     const [page, setPage] = useState(1);
-    const [likedList, setLikedList] = useState([]);
-
-    const [blockedList, setBlockedList] = useState([]);
 
     const [data, setData] = useState({});
     console.log(data);
 
     const nextPage = () => {
-        console.log("next", page);
+        // console.log("next", page);
         setPage(page + 1);
     };
     const prevPage = () => {
-        console.log("preve", page);
+        // console.log("preve", page);
         setPage(page - 1);
     };
 
@@ -99,7 +95,7 @@ const MovieList = (props) => {
     };
 
     const blockButtonHandler = (id) => {
-        console.log(data);
+        // console.log(data);
         const index = data[`page${page}`].findIndex((elem) => elem.id === id);
 
         let items = { ...data };
@@ -113,12 +109,12 @@ const MovieList = (props) => {
     const currPage = `page${page}`;
 
     const [movies, setMovies] = useState(data[currPage]);
-    console.log(data[currPage]);
+    // console.log(data[currPage]);
 
     useEffect(() => {
         setMovies(data[currPage]);
     }, [data[currPage]]);
-    console.log(movies);
+    // console.log(movies);
 
     let renderMovies = movies ? (
         movies.map((movie) => (
@@ -143,7 +139,7 @@ const MovieList = (props) => {
 
     function sortTitle() {
         if (!clikedTitle) {
-            console.log(clikedTitle);
+            // console.log(clikedTitle);
             let sortMovies = [...movies].sort((a, b) => {
                 return a.title > b.title ? 1 : -1
             })
