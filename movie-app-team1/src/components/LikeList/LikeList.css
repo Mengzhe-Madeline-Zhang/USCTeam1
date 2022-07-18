@@ -30,7 +30,8 @@
 .likeListContainer >.likeList >.movie img {
     width: 80%;
     height: 270px;
-    margin-bottom: 1rem;    
+    margin-bottom: 1rem;   
+    background-image: url("../../assets/loading.gif"); 
 }
 
 .likedMovieImgBox{
