@@ -1,0 +1,64 @@
+.likeListContainer {
+    text-align: center;
+    background-color: #f6f2c5;
+}
+
+.likeListContainer >h2{
+    padding: 10px;
+    font-weight: 600;
+    font-family: 'Rancho', serif;
+}
+
+.likeListContainer >.likeList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    display: flex;
+    margin: 0 5%;
+    padding-left: 50px;
+    width: 100%;
+}
+
+.likeListContainer >.likeList >.movie{
+    width: 240px;
+    height: auto;
+    margin: 10px 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.likeListContainer >.likeList >.movie img {
+    width: 80%;
+    height: 270px;
+    margin-bottom: 1rem;    
+}
+
+.likedMovieImgBox{
+    position: relative;
+    z-index: 1;
+    transition: all 0.5s cubic-bezier(0.44, 1.11, 0.71, 1.35);
+    transform: translateY(0%);
+}
+
+.hoverbtns{
+    width: 80%;
+    height: 20%;
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 10%;
+    top: 80%;
+    background-color: #f6f2c5;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.44, 1.11, 0.71, 1.35);
+    text-align: center;
+    transform: translateY(100%);
+}
+.movie:hover .likedMovieImgBox{
+    transform: translateY(-20%);
+}
+
+.movie:hover .hoverbtns{
+    transform: translateY(0%);
+}
