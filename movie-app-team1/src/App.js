@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import LikeList from './components/LikeList/LikeList';
 import BlockList from './components/BlockList/BlockList';
 import './App.css';
-// import Pagination from "./compoent/Pagination";
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
+// import Pagination from "./compoent/Pagination";
 
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
     const items = [...blocklist];
     items.push(item);
     setBlockList(items);
+      
   }
 
   //ComponentDidUpdate -> Prevent 
@@ -45,8 +46,8 @@ function App() {
         <MovieList likes={addLike} blocks={addBlock}/>
         <LikeList movies = {likelist}/>
         <BlockList movies = {blocklist}/>
-      <NavBar pagetoDisplay= {pagetoDisplay} setPagetoDisplay = {setPagetoDisplay} likes={addLike} blocks={addBlock} likelist={likelist} blocklist={blocklist}/>
-      {pagetoDisplay}
+        <NavBar pagetoDisplay= {pagetoDisplay} setPagetoDisplay = {setPagetoDisplay} likes={addLike} blocks={addBlock} likelist={likelist} blocklist={blocklist}/>
+        {pagetoDisplay}
     </div>
   );
 }
