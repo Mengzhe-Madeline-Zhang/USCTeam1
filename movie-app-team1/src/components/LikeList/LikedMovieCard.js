@@ -1,6 +1,6 @@
 import React from 'react'
 
-function MovieCard(props) {
+function LikedMovieCard(props) {
     const {data} = props;
     const img_baseUrl = "https://image.tmdb.org/t/p/w500"
 
@@ -18,4 +18,4 @@ function MovieCard(props) {
   )
 }
 
-export default MovieCard
+export default LikedMovieCard;
