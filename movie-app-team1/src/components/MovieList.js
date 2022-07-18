@@ -93,7 +93,7 @@ const MovieList = (props) => {
     };
 
     const blockButtonHandler = (id) => {
-        console.log(data);
+        // console.log(data);
         const index = data[`page${page}`].findIndex((elem) => elem.id === id);
 
         let items = { ...data };

@@ -1,0 +1,27 @@
+.nav-bar-c {
+    background-color: #ccd5ae;    
+}
+
+.HomePage {
+    height: 100vh;
+    background-color: #f6f2c5;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin: 0 auto;
+}
+
+li > span {
+    cursor: pointer;
+}
+
+.navbar-item {
+    padding:0 20px;
+}
+
+.navbar-item:hover {
+    background-color: #e9edc9;
+}

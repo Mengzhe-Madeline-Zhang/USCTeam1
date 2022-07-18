@@ -14,7 +14,7 @@ function MovieCard(props) {
 
   return (
     <div className='movie'>
-        <img src={img_baseUrl+data.poster_path}></img>
+        <img src={img_baseUrl+data.poster_path} alt="loading data"></img>
         <div className='buttonType'>
           <button className="btn btn-danger Like" onClick={() => props.like(data.id)}>{data.likeButton === false ? "Like" : "Liked"}</button>
           <button className="btn btn-secondary Block" onClick={() => props.block(data.id)}>Block</button>
