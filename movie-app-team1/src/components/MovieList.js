@@ -11,7 +11,6 @@ const MovieCard = React.lazy(() => import("./MovieCard"));
 const GetMovieData = ({ page }) => {
     const { data, setData } = useContext(DataContext);
 
-    // const {data, setData} = useContext(DataContext);
     const currPage = `page${page}`;
 
     useEffect(() => {
@@ -63,7 +62,6 @@ const configData = (newData, page) => {
         };
         addData.push(singleMovieData);
     });
-    // console.log(addData)
     return addData;
 };
 
@@ -71,19 +69,16 @@ const DataContext = createContext(null);
 
 const MovieList = (props) => {
     const [page, setPage] = useState(1);
-    const [likedList, setLikedList] = useState([]);
-
-    const [blockedList, setBlockedList] = useState([]);
 
     const [data, setData] = useState({});
     console.log(data);
 
     const nextPage = () => {
-        console.log("next", page);
+        // console.log("next", page);
         setPage(page + 1);
     };
     const prevPage = () => {
-        console.log("preve", page);
+        // console.log("preve", page);
         setPage(page - 1);
     };
 
@@ -94,7 +89,6 @@ const MovieList = (props) => {
         let item = items[`page${page}`][index];
         item.likeButton = true;
         setData(items);
-        // console.log(data);
         props.likes({ page: `page${page}`, data: item });
     };
 
@@ -113,12 +107,10 @@ const MovieList = (props) => {
     const currPage = `page${page}`;
 
     const [movies, setMovies] = useState(data[currPage]);
-    console.log(data[currPage]);
 
     useEffect(() => {
         setMovies(data[currPage]);
     }, [data[currPage]]);
-    console.log(movies);
 
     let renderMovies = movies ? (
         movies.map((movie) => (
@@ -143,7 +135,6 @@ const MovieList = (props) => {
 
     function sortTitle() {
         if (!clikedTitle) {
-            console.log(clikedTitle);
             let sortMovies = [...movies].sort((a, b) => {
                 return a.title > b.title ? 1 : -1
             })
@@ -164,18 +155,15 @@ const MovieList = (props) => {
             const sortMovies = [...movies].sort((a, b) => {
                 return a.vote_average > b.vote_average ? -1 : 1
             })
-
             setMovies(sortMovies);
             setClikedVote(true);
         } else {
             const sortMovies = [...movies].sort((a, b) => {
                 return a.vote_average < b.vote_average ? -1 : 1
             })
-
             setMovies(sortMovies);
             setClikedVote(false);
         }
-
     }
 
     function sortCount() {
@@ -191,11 +179,9 @@ const MovieList = (props) => {
             const sortMovies = [...movies].sort((a, b) => {
                 return a.vote_count < b.vote_count ? -1 : 1
             })
-
             setMovies(sortMovies);
             setClikedCount(false);
         }
-
     }
 
     function sortDate() {
@@ -215,8 +201,6 @@ const MovieList = (props) => {
         }
 
     }
-
-
     return (
         <DataContext.Provider value={{ data, setData }}>
             <div className="movieListContainer">

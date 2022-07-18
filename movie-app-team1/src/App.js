@@ -1,6 +1,9 @@
 import React from 'react';
 import MovieList from './components/MovieList';
 import { useState, useEffect } from "react";
+import LikeList from './components/LikeList/LikeList';
+import BlockList from './components/BlockList/BlockList';
+import './App.css';
 // import Pagination from "./compoent/Pagination";
 
 
@@ -30,14 +33,16 @@ function App() {
 
   //ComponentDidUpdate -> Prevent 
   useEffect(() => {
-    // console.log(likelist);
+    console.log(likelist);
     console.log(blocklist);
   },[blocklist]);
-
+  
   return (
     
     <div>
         <MovieList likes={addLike} blocks={addBlock}/>
+        <LikeList movies = {likelist}/>
+        <BlockList movies = {blocklist}/>
     </div>
   );
 }

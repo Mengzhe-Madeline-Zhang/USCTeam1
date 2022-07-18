@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState, useEffect } from "react";
 
 function MovieCard(props) {
     const {data} = props;
