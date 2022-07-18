@@ -5,9 +5,9 @@ import movieApi from "../apis/movieApi";
 import { addMovies } from "./Slice";
 import { APIkey } from "../apis/movieApiKey";
 import { useDispatch, useSelector } from 'react-redux';
-import ScoreSort from "../components/sortButtons/ScoreSort";
 
 import "./MovieList.css";
+
 
 const MovieCard = React.lazy(() => import("./MovieCard"));
 
@@ -41,13 +41,23 @@ const MovieList = () => {
 
     const [blockedList, setBlockedList] = useState([]);
 
+    const[likedmovies, setLikedmovies] = useState([]);
+
     const nextPage = () => {
         console.log("next",page);
         setPage(page + 1);
+        setClikedTitle(false);
+        setClikedVote(false);
+        setClikedCount(false);
+        setClikedDate(false);  
     }
     const prevPage = () => {
         console.log("preve",page)
          setPage(page-1);
+         setClikedTitle(false);
+         setClikedVote(false);
+         setClikedCount(false);
+         setClikedDate(false);  
     }
 
     const addLike = (item, setItem) => {
@@ -63,27 +73,136 @@ const MovieList = () => {
         console.log(likedList);
 
     }
-    
-    let movies = useSelector(getAllMovies);
 
-    let renderMovies = "";
+    const addLikeList = (item, setItem) => {
+        let items = [...likedmovies];
+        items.push(item);
+        setLikedmovies(items);
+        console.log(likedmovies);
+    }
+    
+    const movieinfo = useSelector(getAllMovies);
+    const [movies, setMovies] = useState(movieinfo.results);
+    // let movies = useSelector(getAllMovies);
+    console.log(movies);
+    // console.log(typeof(movies.results))
+    // console.log(movies.results)
+   
+    useEffect(()=>{
+            setMovies(movieinfo.results);
+    },[movieinfo])
+
+    // let renderMovies = "";
+    // renderMovies =
+    //     movies.results ? (
+    //         movies.results.map((movie) => (
+    //             <MovieCard key={movie.id} data={movie} like={addLike} block={addBlock} likedmovies = {addLikeList}/>
+    //         ))
+    //     ) : (
+    //         <div>Error message</div>
+    //     )
+
+        let renderMovies = "";
     renderMovies =
-        movies.results ? (
-            movies.results.map((movie) => (
-                <MovieCard key={movie.id} data={movie} like={addLike} block={addBlock} />
+        movies ? (
+            movies.map((movie) => (
+                <MovieCard key={movie.id} data={movie} like={addLike} block={addBlock} likedmovies = {addLikeList}/>
             ))
         ) : (
             <div>Error message</div>
         )
+const[clikedTitle, setClikedTitle] = useState(false);
+const[clikedVote, setClikedVote] = useState(false);
+const[clikedCount, setClikedCount] = useState(false);
+const[clikedDate, setClikedDate] = useState(false);
+
+        function sortTitle(){
+            if(!clikedTitle){
+                console.log(clikedTitle);
+                let sortMovies = [...movies].sort((a,b)=>{
+                    return a.title > b.title? 1 :-1 
+                            })
+                    setMovies(sortMovies);
+                    setClikedTitle(true);
+            } else {
+                let sortMovies = [...movies].sort((a,b)=>{
+                    return a.title < b.title? 1 :-1 
+                            })
+                    setMovies(sortMovies);
+                    setClikedTitle(false);
+            }
+        }
+
+
+    function sortVote(){
+        if(!clikedVote){
+            const sortMovies = [...movies].sort((a,b)=>{
+                return a.vote_average > b.vote_average? -1 :1 
+                        })
+                       
+                setMovies(sortMovies);
+                setClikedVote(true);
+        } else{
+            const sortMovies = [...movies].sort((a,b)=>{
+                return a.vote_average < b.vote_average? -1 :1 
+                        })
+                     
+                setMovies(sortMovies);
+                setClikedVote(false);
+        }
+       
+    }
+
+    function sortCount(){
+        if(!clikedCount){
+            const sortMovies = [...movies].sort((a,b)=>{
+                return a.vote_count > b.vote_count? -1 :1 
+                        })
+                     
+                setMovies(sortMovies);
+                setClikedCount(true);
+        }
+        else{
+            const sortMovies = [...movies].sort((a,b)=>{
+                return a.vote_count < b.vote_count? -1 :1 
+                        })
+                     
+                setMovies(sortMovies);
+                setClikedCount(false);
+        }
+       
+    }
+
+    function sortDate(){
+        if(!clikedDate){
+            const sortMovies = [...movies].sort((a,b)=>{
+                return a.release_date > b.release_date? -1 :1 
+                        })
+                       
+                setMovies(sortMovies);
+                setClikedDate(true);
+        }else{
+            const sortMovies = [...movies].sort((a,b)=>{
+                return a.release_date < b.release_date? -1 :1 
+                        })         
+                setMovies(sortMovies);
+                setClikedDate(false);
+        }
+      
+    }
+
+  
+
+  
 
     return <div className="movieListContainer">
         <h1>Our Top Rated Movies List</h1>  
         {/* temporary sort button */}
         <div className="sortButtons">
-            <button className="btn btn-primary">Title <i className="bi bi-arrow-down"></i></button>
-            <button className="btn btn-primary">Vote  <i className="bi bi-arrow-down"></i></button>
-            <button className="btn btn-primary">Count <i className="bi bi-arrow-down"></i></button>
-            <button className="btn btn-primary">Date <i className="bi bi-arrow-down"></i></button>
+            <button className="btn btn-primary" onClick={()=>sortTitle()}>Title {clikedTitle === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
+            <button className="btn btn-primary" onClick={()=>sortVote()}>Vote  {clikedVote === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
+            <button className="btn btn-primary" onClick={()=>sortCount()}>Count {clikedCount === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
+            <button className="btn btn-primary" onClick={()=>sortDate()}>Date {clikedDate === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
         </div>
         
         <div className="pageContainer">
