@@ -4,10 +4,9 @@ import movieApi from "../apis/movieApi";
 import { APIkey } from "../apis/movieApiKey";
 import Loading from "./Loading";
 import { DataContext } from "../App"
-
 import "./MovieList.css";
 
-const MovieCard = React.lazy(() => import("./MovieCard"));
+ const MovieCard = React.lazy(() => import("./MovieCard"));
 
 const GetMovieData = ({ page }) => {
     const { data, setData } = useContext(DataContext);
@@ -69,7 +68,6 @@ const configData = (newData, page) => {
 const MovieList = (props) => {
     const [page, setPage] = useState(1);
     const { data, setData } = useContext(DataContext);
-
     const nextPage = () => {
         // console.log("next", page);
         setPage(page + 1);
@@ -91,7 +89,7 @@ const MovieList = (props) => {
 
     const blockButtonHandler = (id) => {
         const index = data[`page${page}`].findIndex((elem) => elem.id === id);
-
+        console.log(data)
         let items = { ...data };
         let item = items[`page${page}`];
         
@@ -99,7 +97,7 @@ const MovieList = (props) => {
         specifc.blockButton = true;
         item.splice(index, 1);
         setData(items);
-        props.blocks({ page: `page${page}`, data: specifc });
+        props.blocks({ page: `page${page}`, data: specifc, index: index });
     };
     const currPage = `page${page}`;
 
