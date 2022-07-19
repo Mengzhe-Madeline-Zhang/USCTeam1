@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import BlockedMovieCard from "./BlockedMovieCard";
 import Loading from "../Loading";
 import "./BlockList.css";
@@ -6,6 +6,10 @@ import "./BlockList.css";
 const BlockList=(props) =>{
 
   let blocklist = props;
+
+
+
+
     let renderMovies = blocklist ? (
         blocklist.movies.map((movie) => (
             <BlockedMovieCard

@@ -90,11 +90,11 @@ const MovieList = (props) => {
     };
 
     const blockButtonHandler = (id) => {
-        console.log(data);
         const index = data[`page${page}`].findIndex((elem) => elem.id === id);
 
         let items = { ...data };
         let item = items[`page${page}`];
+        
         let specifc = item[index];
         specifc.blockButton = true;
         item.splice(index, 1);
