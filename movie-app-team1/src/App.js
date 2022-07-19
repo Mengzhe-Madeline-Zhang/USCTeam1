@@ -56,6 +56,8 @@ function App() {
           blocklist={blocklist}
           likes={addLike}
           blocks={addBlock}
+          setLikeList={setLikeList}
+          setBlockList={setBlockList}
         />
       </div>
     </DataContext.Provider>

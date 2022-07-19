@@ -10,8 +10,8 @@ function BlockedMovieCard(props) {
         <img src={img_baseUrl+data.poster_path}></img>
         </div>
         <div className='hoverbtns'>
-          <button className="btn"> <i className="bi bi-trash-fill"></i></button>
-          <button className="btn"><i className="bi bi-heart"></i></button>
+          <button className="btn" onClick={() => props.unblock(data.id)}> <i className="bi bi-trash-fill"></i></button>
+          <button className="btn" onClick={() => props.blocktoLike(data.id)}><i className="bi bi-heart"></i></button>
           <button className="btn"><i className="bi bi-three-dots"></i></button>
         </div>
     </div>
