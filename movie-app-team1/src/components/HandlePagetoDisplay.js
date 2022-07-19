@@ -7,7 +7,6 @@ import { DataContext } from '../App';
 
 function HandlePagetoDisplay(props) {
     const {data} = useContext(DataContext);
-    console.log(data, " i am here");
     if (props.targetPage === "homepage") {
         return <HomePage/>;
       }
