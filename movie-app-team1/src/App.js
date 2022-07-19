@@ -1,21 +1,26 @@
 import React from 'react';
-import MovieList from './components/MovieList';
-import { useState, useEffect } from "react";
-import LikeList from './components/LikeList/LikeList';
-import BlockList from './components/BlockList/BlockList';
+import { createContext, useContext, useState, useEffect } from "react";
 import './App.css';
-// import Pagination from "./compoent/Pagination";
+import NavBar from './components/NavBar';
+import HomePage from './components/HomePage'
+import HandlePagetoDisplay from './components/HandlePagetoDisplay';
+
+
+export const DataContext = createContext(null);
+
+
 
 
 function App() {
   const [likelist, setLikeList] = useState([]);
-  const [blocklist,setBlockList] = useState([]);
-
+  const [blocklist, setBlockList] = useState([]);
+  const [pagetoDisplay, setPagetoDisplay] = useState(<HomePage />)
+  const [data, setData] = useState({});
   const addLike = (item) => {
     const preventRepeat = likelist.find((elem) => {
       return elem.data.id === item.data.id;
     });
-    if (!preventRepeat){
+    if (!preventRepeat) {
       const items = [...likelist];
       items.push(item);
       setLikeList(items);
@@ -28,22 +33,35 @@ function App() {
     const items = [...blocklist];
     items.push(item);
     setBlockList(items);
-      
   }
 
   //ComponentDidUpdate -> Prevent 
   useEffect(() => {
     console.log(likelist);
     console.log(blocklist);
-  },[blocklist]);
-  
+  }, [blocklist]);
+
+
+
+
   return (
-    
-    <div>
-        <MovieList likes={addLike} blocks={addBlock}/>
-        <LikeList movies = {likelist}/>
-        <BlockList movies = {blocklist}/>
-    </div>
+    <DataContext.Provider value={{ data, setData }}>
+      <div>
+        <NavBar
+
+          setPagetoDisplay={setPagetoDisplay}
+        />
+        <HandlePagetoDisplay
+          targetPage={pagetoDisplay}
+          setPagetoDisplay={setPagetoDisplay}
+          likelist={likelist}
+          blocklist={blocklist}
+          likes={addLike}
+          blocks={addBlock}
+        />
+      </div>
+    </DataContext.Provider>
+
   );
 }
 

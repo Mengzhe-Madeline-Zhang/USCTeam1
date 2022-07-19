@@ -1,8 +1,9 @@
-import React, { createContext, Suspense, useContext } from "react";
-import { useState, useEffect } from "react";
+import React, {  Suspense,  } from "react";
+import {useContext, useState, useEffect } from "react";
 import movieApi from "../apis/movieApi";
 import { APIkey } from "../apis/movieApiKey";
 import Loading from "./Loading";
+import {DataContext} from "../App"
 
 import "./MovieList.css";
 
@@ -10,7 +11,6 @@ const MovieCard = React.lazy(() => import("./MovieCard"));
 
 const GetMovieData = ({ page }) => {
     const { data, setData } = useContext(DataContext);
-
     const currPage = `page${page}`;
 
     useEffect(() => {
@@ -65,13 +65,10 @@ const configData = (newData, page) => {
     return addData;
 };
 
-const DataContext = createContext(null);
 
 const MovieList = (props) => {
     const [page, setPage] = useState(1);
-
-    const [data, setData] = useState({});
-    console.log(data);
+    const { data, setData } = useContext(DataContext);
 
     const nextPage = () => {
         // console.log("next", page);
@@ -202,7 +199,6 @@ const MovieList = (props) => {
 
     }
     return (
-        <DataContext.Provider value={{ data, setData }}>
             <div className="movieListContainer">
                 <h1>Our Top Rated Movies List</h1>
            
@@ -230,7 +226,6 @@ const MovieList = (props) => {
                     <Suspense fallback={<div>Loading...</div>}>{renderMovies}</Suspense>
                 </div>
             </div>
-        </DataContext.Provider>
     );
 };
 

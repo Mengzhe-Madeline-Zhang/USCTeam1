@@ -11,7 +11,7 @@ function BlockedMovieCard(props) {
         </div>
         <div className='hoverbtns'>
           <button className="btn"> <i className="bi bi-trash-fill"></i></button>
-          <button className="btn"><i class="bi bi-heart"></i></button>
+          <button className="btn"><i className="bi bi-heart"></i></button>
           <button className="btn"><i className="bi bi-three-dots"></i></button>
         </div>
     </div>
