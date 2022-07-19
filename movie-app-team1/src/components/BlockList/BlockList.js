@@ -9,6 +9,8 @@ const BlockList=(props) =>{
     let renderMovies = blocklist ? (
         blocklist.movies.map((movie) => (
             <BlockedMovieCard
+            unblock={props.unblock} 
+            blocktoLike={props.blocktoLike}
             key={movie.data.id}
             data={movie.data}
             />

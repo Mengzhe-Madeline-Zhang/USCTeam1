@@ -10,8 +10,8 @@ function LikedMovieCard(props) {
         <img src={img_baseUrl+data.poster_path}></img>
         </div>
         <div className='hoverbtns'>
-          <button className="btn"> <i className="bi bi-trash-fill"></i></button>
-          <button className="btn"><i className="bi bi-slash-circle"></i></button>
+          <button className="btn" onClick={() => props.unlike(data.id)}> <i className="bi bi-trash-fill"></i></button>
+          <button className="btn" onClick={() => props.likeToBlock(data.id)}><i className="bi bi-slash-circle"></i></button>
           <button className="btn"><i className="bi bi-three-dots"></i></button>
         </div>
     </div>

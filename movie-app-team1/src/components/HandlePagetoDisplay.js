@@ -16,11 +16,11 @@ function HandlePagetoDisplay(props) {
       }
       if (props.targetPage === "likelist") {
   
-        return <LikeList movies={props.likelist} />;
+        return <LikeList movies={props.likelist} unlike={props.unlike} likeToBlock={props.likeToBlock}/>;
   
       }
       if (props.targetPage === "blocklist") {
-        return <BlockList  movies={props.blocklist} />;
+        return <BlockList movies={props.blocklist} unblock={props.removeblock} blocktoLike={props.blocktoLike}/>;
   
       }
 
