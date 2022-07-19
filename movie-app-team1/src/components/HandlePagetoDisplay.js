@@ -186,7 +186,7 @@ function HandlePagetoDisplay(props) {
     return <HomePage />;
   }
   if (props.targetPage === "movielist") {
-    return <MovieList likes={props.likes} blocks={props.blocks} />;
+    return <MovieList likes={props.likes} blocks={props.blocks} likelist={props.likelist} />;
   }
   if (props.targetPage === "likelist") {
 

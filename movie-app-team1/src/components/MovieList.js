@@ -90,16 +90,22 @@ const MovieList = (props) => {
     };
 
     const blockButtonHandler = (id) => {
-        console.log(data);
-        const index = data[`page${page}`].findIndex((elem) => elem.id === id);
-
-        let items = { ...data };
-        let item = items[`page${page}`];
-        let specifc = item[index];
-        specifc.blockButton = true;
-        item.splice(index, 1);
-        setData(items);
-        props.blocks({ page: `page${page}`, data: specifc });
+        const preventLikeBlockConflict = props.likelist.find((elem) => {
+            return elem.data.id === id;
+        });
+        
+        if (!preventLikeBlockConflict) {
+            const index = data[`page${page}`].findIndex((elem) => elem.id === id);
+            let items = { ...data };
+            let item = items[`page${page}`];
+            let specifc = item[index];
+            specifc.blockButton = true;
+            item.splice(index, 1);
+            setData(items);
+            props.blocks({ page: `page${page}`, data: specifc });
+        } else {
+            console.log("Error: Can't like and block at the same time");
+        }
     };
     const currPage = `page${page}`;
 

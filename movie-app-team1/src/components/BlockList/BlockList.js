@@ -7,9 +7,6 @@ const BlockList=(props) =>{
 
   let blocklist = props;
 
-
-
-
     let renderMovies = blocklist ? (
         blocklist.movies.map((movie) => (
             <BlockedMovieCard
@@ -28,8 +25,8 @@ const BlockList=(props) =>{
 
     return (
         <div className="blockListContainer">
-<h2>MovieList of Blocked</h2>
-<div className="blockList">
+            <h2>MovieList of Blocked</h2>
+            <div className="blockList">
             {renderMovies}
             </div>
         </div>

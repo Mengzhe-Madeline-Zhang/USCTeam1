@@ -15,10 +15,15 @@ function App() {
   const [data, setData] = useState({});
 
   const addLike = (item) => {
-    const preventRepeat = likelist.find((elem) => {
+    const preventLikeRepeat = likelist.find((elem) => {
       return elem.data.id === item.data.id;
     });
-    if (!preventRepeat) {
+
+    const preventBlockRepeat = blocklist.find((elem) => {
+      return elem.data.id === item.data.id;
+    });
+
+    if (!(preventLikeRepeat) && !(preventBlockRepeat)) {
       const items = [...likelist];
       items.push(item);
       setLikeList(items);
@@ -28,6 +33,7 @@ function App() {
   }
 
   const addBlock = (item) => {
+    
     const items = [...blocklist];
     items.push(item);
     setBlockList(items);
