@@ -1,9 +1,9 @@
-import React, {  Suspense,  } from "react";
-import {useContext, useState, useEffect } from "react";
+import React, { Suspense, } from "react";
+import { useContext, useState, useEffect } from "react";
 import movieApi from "../apis/movieApi";
 import { APIkey } from "../apis/movieApiKey";
 import Loading from "./Loading";
-import {DataContext} from "../App"
+import { DataContext } from "../App"
 
 import "./MovieList.css";
 
@@ -103,14 +103,10 @@ const MovieList = (props) => {
     };
     const currPage = `page${page}`;
 
-    const [movies, setMovies] = useState(data[currPage]);
 
-    useEffect(() => {
-        setMovies(data[currPage]);
-    }, [data[currPage]]);
 
-    let renderMovies = movies ? (
-        movies.map((movie) => (
+    let renderMovies = data[currPage] ? (
+        data[currPage].map((movie) => (
             <MovieCard
                 key={movie.id}
                 data={movie}
@@ -130,18 +126,23 @@ const MovieList = (props) => {
     const [clikedCount, setClikedCount] = useState(false);
     const [clikedDate, setClikedDate] = useState(false);
 
+    let sortMovies;
     function sortTitle() {
         if (!clikedTitle) {
-            let sortMovies = [...movies].sort((a, b) => {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.title > b.title ? 1 : -1
             })
-            setMovies(sortMovies);
+
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedTitle(true);
-        } else {
-            let sortMovies = [...movies].sort((a, b) => {
+        } 
+        else {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.title < b.title ? 1 : -1
             })
-            setMovies(sortMovies);
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedTitle(false);
         }
     }
@@ -149,83 +150,87 @@ const MovieList = (props) => {
 
     function sortVote() {
         if (!clikedVote) {
-            const sortMovies = [...movies].sort((a, b) => {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.vote_average > b.vote_average ? -1 : 1
             })
-            setMovies(sortMovies);
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedVote(true);
         } else {
-            const sortMovies = [...movies].sort((a, b) => {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.vote_average < b.vote_average ? -1 : 1
             })
-            setMovies(sortMovies);
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedVote(false);
         }
     }
 
     function sortCount() {
         if (!clikedCount) {
-            const sortMovies = [...movies].sort((a, b) => {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.vote_count > b.vote_count ? -1 : 1
             })
-
-            setMovies(sortMovies);
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedCount(true);
         }
         else {
-            const sortMovies = [...movies].sort((a, b) => {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.vote_count < b.vote_count ? -1 : 1
             })
-            setMovies(sortMovies);
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedCount(false);
         }
     }
 
     function sortDate() {
         if (!clikedDate) {
-            const sortMovies = [...movies].sort((a, b) => {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.release_date > b.release_date ? -1 : 1
             })
-
-            setMovies(sortMovies);
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedDate(true);
         } else {
-            const sortMovies = [...movies].sort((a, b) => {
+            sortMovies = [...data[currPage]].sort((a, b) => {
                 return a.release_date < b.release_date ? -1 : 1
             })
-            setMovies(sortMovies);
+            const sortedData = {[currPage]: sortMovies};
+            setData(sortedData);
             setClikedDate(false);
         }
 
     }
     return (
-            <div className="movieListContainer">
-                <h1>Our Top Rated Movies List</h1>
-           
-                <div className="sortButtons">
-                    <button className="btn btn-primary" onClick={() => sortTitle()}>Title {clikedTitle === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
-                    <button className="btn btn-primary" onClick={() => sortVote()}>Vote  {clikedVote === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
-                    <button className="btn btn-primary" onClick={() => sortCount()}>Count {clikedCount === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
-                    <button className="btn btn-primary" onClick={() => sortDate()}>Date {clikedDate === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
-                </div>
+        <div className="movieListContainer">
+            <h1>Our Top Rated Movies List</h1>
 
-                <div className="pageContainer">
-                    <button
-                        className="pageButtons"
-                        disabled={page === 1 ? true : false}
-                        onClick={() => prevPage()}
-                    >
-                        <i className="bi bi-caret-left-square attemp"></i>
-                    </button>
-                    <button className="pageButtons" onClick={() => nextPage()}>
-                        <i className="bi bi-caret-right-square attemp"></i>
-                    </button>
-                </div>
-                <GetMovieData page={page} />
-                <div className="movieList ">
-                    <Suspense fallback={<div>Loading...</div>}>{renderMovies}</Suspense>
-                </div>
+            <div className="sortButtons">
+                <button className="btn btn-primary" onClick={() => sortTitle()}>Title {clikedTitle === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
+                <button className="btn btn-primary" onClick={() => sortVote()}>Vote  {clikedVote === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
+                <button className="btn btn-primary" onClick={() => sortCount()}>Count {clikedCount === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
+                <button className="btn btn-primary" onClick={() => sortDate()}>Date {clikedDate === false ? <i className="bi bi-arrow-down"></i> : <i className="bi bi-arrow-up"></i>}</button>
             </div>
+
+            <div className="pageContainer">
+                <button
+                    className="pageButtons"
+                    disabled={page === 1 ? true : false}
+                    onClick={() => prevPage()}
+                >
+                    <i className="bi bi-caret-left-square attemp"></i>
+                </button>
+                <button className="pageButtons" onClick={() => nextPage()}>
+                    <i className="bi bi-caret-right-square attemp"></i>
+                </button>
+            </div>
+            <GetMovieData page={page} />
+            <div className="movieList ">
+                <Suspense fallback={<div>Loading...</div>}>{renderMovies}</Suspense>
+            </div>
+        </div>
     );
 };
 
