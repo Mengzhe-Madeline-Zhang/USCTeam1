@@ -8,9 +8,6 @@ import HandlePagetoDisplay from './components/HandlePagetoDisplay';
 
 export const DataContext = createContext(null);
 
-
-
-
 function App() {
   const [likelist, setLikeList] = useState([]);
   const [blocklist, setBlockList] = useState([]);
@@ -36,10 +33,10 @@ function App() {
   }
 
   //ComponentDidUpdate -> Prevent 
-  useEffect(() => {
-    console.log(likelist);
-    console.log(blocklist);
-  }, [blocklist]);
+  // useEffect(() => {
+  //   console.log(likelist);
+  //   console.log(blocklist);
+  // }, [blocklist]);
 
 
 

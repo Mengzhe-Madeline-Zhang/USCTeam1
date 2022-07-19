@@ -1,12 +1,14 @@
-import React, { Suspense, } from "react";
+import React from "react";
 import { useContext, useState, useEffect } from "react";
 import movieApi from "../apis/movieApi";
 import { APIkey } from "../apis/movieApiKey";
 import Loading from "./Loading";
 import { DataContext } from "../App"
+import MovieCard from "./MovieCard";
+
 import "./MovieList.css";
 
- const MovieCard = React.lazy(() => import("./MovieCard"));
+let totalPage;
 
 const GetMovieData = ({ page }) => {
     const { data, setData } = useContext(DataContext);
@@ -23,8 +25,8 @@ const GetMovieData = ({ page }) => {
 
                 const singleMovieData = response.data;
                 // console.log(singleMovieData);
-
-                const newData = configData(singleMovieData, currPage);
+                totalPage = singleMovieData.total_pages;
+                const newData = configData(singleMovieData);
                 // console.log(newData);
                 const addData = { ...data, [currPage]: newData };
                 // console.log(singleMovieData);
@@ -36,7 +38,7 @@ const GetMovieData = ({ page }) => {
 };
 
 //Deconstructing movie data
-const configData = (newData, page) => {
+const configData = (newData) => {
     const addData = [];
     newData.results.forEach((data) => {
         let {
@@ -220,13 +222,14 @@ const MovieList = (props) => {
                 >
                     <i className="bi bi-caret-left-square attemp"></i>
                 </button>
+                <span>{page} / {totalPage}</span>
                 <button className="pageButtons" onClick={() => nextPage()}>
                     <i className="bi bi-caret-right-square attemp"></i>
                 </button>
             </div>
             <GetMovieData page={page} />
             <div className="movieList ">
-                <Suspense fallback={<div>Loading...</div>}>{renderMovies}</Suspense>
+                {renderMovies}
             </div>
         </div>
     );
